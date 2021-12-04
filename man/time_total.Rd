@@ -16,7 +16,7 @@ A string with time in hours.
 Sum up all working hours.
 }
 \examples{
-timesheet <- add_entry("2021-11-04 12:30:00", "2021-12-04 13:30:00", "Eating in office hours")
+timesheet <- add_entry("2021-11-04 12:30:00", "2021-11-04 13:30:00", "Eating in office hours")
 timesheet <- add_entry("2021-12-04 13:30:00", "2021-12-04 16:30:00", "Powernap", timesheet)
 time_total(timesheet)
 }

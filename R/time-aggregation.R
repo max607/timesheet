@@ -19,7 +19,8 @@ time_total <- function(timesheet) {
 #' Sum up the working hours of month i.
 #'
 #' @param timesheet A correctly named data.table.
-#' @param month Am integer between 1 and 12.
+#' @param month Am integer between 1 and 12, defaults to current month.
+#' @param year Am integer, defaults to current year.
 #' @param work_left Calculate remaining hours instead.
 #' @param hours_per_month How many hours are worked per month.
 #'
@@ -32,11 +33,11 @@ time_total <- function(timesheet) {
 #' time_month(timesheet, month = 11)
 #' time_month(timesheet, month = 12)
 #' time_month(timesheet, month = 12, work_left = TRUE)
-time_month <- function(timesheet, month, work_left = FALSE, hours_per_month = 39) {
+time_month <- function(timesheet, month = data.table::month(Sys.time()), year = data.table::year(Sys.time()),
+                       work_left = FALSE, hours_per_month = 39) {
   timesheet %>%
-    .[month(start) == month, .(sum = sum(difftime(end, start, units = "hours")))] %>%
+    .[month(start) == month & year(start) == year, .(sum = sum(difftime(end, start, units = "hours")))] %>%
     as.numeric() %>%
-    {if (work_left) hours_per_month - .
-       else .} %>%
+    {if (work_left) hours_per_month - . else .} %>%
     {paste0(floor(.), "h ", round((. - floor(.)) * 60), "min")}
 }

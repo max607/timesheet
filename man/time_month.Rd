@@ -4,12 +4,20 @@
 \alias{time_month}
 \title{Sum up the working hours of month i.}
 \usage{
-time_month(timesheet, month, work_left = FALSE, hours_per_month = 39)
+time_month(
+  timesheet,
+  month = data.table::month(Sys.time()),
+  year = data.table::year(Sys.time()),
+  work_left = FALSE,
+  hours_per_month = 39
+)
 }
 \arguments{
 \item{timesheet}{A correctly named data.table.}
 
-\item{month}{Am integer between 1 and 12.}
+\item{month}{Am integer between 1 and 12, defaults to current month.}
+
+\item{year}{Am integer, defaults to current year.}
 
 \item{work_left}{Calculate remaining hours instead.}
 

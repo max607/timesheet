@@ -24,7 +24,7 @@ overview <- function(timesheet) {
   seconds <- apply(timesheet, 1, function(session) difftime(session[[2]], session[[1]], units = "secs"))
   positions <- map2_dbl(timesheet[, time_start], seconds/2, `+`) %>% as.POSIXct(origin = "1970-01-01")
   dt_label <- data.table(x_coord = timesheet[, date], y_coord = positions, label = seconds)
-  dt_label[, label := paste0(round(label / 3600, 2), "h")]
+  dt_label[, label := paste0(round(label / 3600), "h")]
 
   # melt
   timesheet %>% .[, session := seq_len(.N)] %>%

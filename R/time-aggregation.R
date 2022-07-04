@@ -37,7 +37,7 @@ time_month <- function(timesheet, month = data.table::month(Sys.time()), year = 
                        work_left = FALSE, hours_per_month = 39) {
   timesheet %>%
     .[month(start) == month & year(start) == year, .(sum = sum(difftime(end, start, units = "hours")))] %>%
-    as.numeric() %>%
+    {if(nrow(.) != 0) as.numeric(.) else 0} %>%
     {if (work_left) hours_per_month - . else .} %>%
     {paste0(floor(.), "h ", round((. - floor(.)) * 60), "min")}
 }
